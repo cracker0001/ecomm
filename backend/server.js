@@ -8,6 +8,8 @@ import profileRouter from './src/routes/profile.js';
 import categoryRouter from "./src/routes/category.js";
 import productRouter from "./src/routes/product.js";
 import orderRouter from "./src/routes/order.js";
+import cartRouter from "./src/routes/cart.js";
+
 
 dotenv.config();
 
@@ -27,6 +29,7 @@ app.use('/',profileRouter);
 app.use("/", categoryRouter);
 app.use("/", productRouter);
 app.use("/", orderRouter);
+app.use("/", cartRouter);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
