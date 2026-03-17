@@ -11,6 +11,17 @@ addressRouter.post("/address", userAuth, async (req,res)=>{
 
     const { name, phone, addressLine, city, state, pincode, isDefault } = req.body;
 
+    if (!name || !phone || !addressLine || !city || !state || !pincode) {
+      return res.status(400).send("All fields are required");
+    }
+
+    if (isDefault) {
+      await Address.updateMany(
+        { user: req.user._id },
+        { isDefault: false }
+      );
+    }
+
     const address = new Address({
       user: req.user._id,
       name,
@@ -31,7 +42,6 @@ addressRouter.post("/address", userAuth, async (req,res)=>{
     res.status(400).send(err.message);
   }
 });
-
 
 // GET USER ADDRESSES
 addressRouter.get("/address", userAuth, async (req,res)=>{

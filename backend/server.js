@@ -9,7 +9,7 @@ import categoryRouter from "./src/routes/category.js";
 import productRouter from "./src/routes/product.js";
 import orderRouter from "./src/routes/order.js";
 import cartRouter from "./src/routes/cart.js";
-
+import addressRouter from "./src/routes/address.js";
 
 dotenv.config();
 
@@ -19,7 +19,10 @@ connectDB();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true,
+}));
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
@@ -30,6 +33,7 @@ app.use("/", categoryRouter);
 app.use("/", productRouter);
 app.use("/", orderRouter);
 app.use("/", cartRouter);
+app.use("/", addressRouter);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
